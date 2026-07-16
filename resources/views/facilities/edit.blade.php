@@ -1,0 +1,58 @@
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            Edit Fasilitas
+        </h2>
+    </x-slot>
+
+    <div class="py-12">
+        <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
+
+                <form method="POST" action="{{ route('facilities.update', $facility) }}" class="space-y-4">
+                    @csrf
+                    @method('PUT')
+
+                    <div>
+                        <label class="block font-medium text-sm text-gray-700">Nama Fasilitas</label>
+                        <input type="text" name="name" value="{{ old('name', $facility->name) }}" class="mt-1 block w-full border-gray-300 rounded-md">
+                        @error('name') <p class="text-red-600 text-sm mt-1">{{ $message }}</p> @enderror
+                    </div>
+
+                    <div>
+                        <label class="block font-medium text-sm text-gray-700">Kategori</label>
+                        <input type="text" name="category" value="{{ old('category', $facility->category) }}" class="mt-1 block w-full border-gray-300 rounded-md">
+                        @error('category') <p class="text-red-600 text-sm mt-1">{{ $message }}</p> @enderror
+                    </div>
+
+                    <div>
+                        <label class="block font-medium text-sm text-gray-700">Kapasitas (opsional)</label>
+                        <input type="number" name="capacity" value="{{ old('capacity', $facility->capacity) }}" class="mt-1 block w-full border-gray-300 rounded-md">
+                        @error('capacity') <p class="text-red-600 text-sm mt-1">{{ $message }}</p> @enderror
+                    </div>
+
+                    <div>
+                        <label class="block font-medium text-sm text-gray-700">Lokasi</label>
+                        <input type="text" name="location" value="{{ old('location', $facility->location) }}" class="mt-1 block w-full border-gray-300 rounded-md">
+                        @error('location') <p class="text-red-600 text-sm mt-1">{{ $message }}</p> @enderror
+                    </div>
+
+                    <div>
+                        <label class="block font-medium text-sm text-gray-700">Status</label>
+                        <select name="status" class="mt-1 block w-full border-gray-300 rounded-md">
+                            <option value="available" {{ $facility->status === 'available' ? 'selected' : '' }}>Available</option>
+                            <option value="maintenance" {{ $facility->status === 'maintenance' ? 'selected' : '' }}>Maintenance</option>
+                        </select>
+                        @error('status') <p class="text-red-600 text-sm mt-1">{{ $message }}</p> @enderror
+                    </div>
+
+                    <div class="flex gap-2">
+                        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Update</button>
+                        <a href="{{ route('facilities.index') }}" class="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300">Batal</a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</x-app-layout>
